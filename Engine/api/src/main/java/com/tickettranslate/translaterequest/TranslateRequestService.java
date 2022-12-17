@@ -3,6 +3,8 @@ package com.tickettranslate.translaterequest;
 
 // import org.bson.json.JsonObject;
 //import org.springframework.boot.json.JsonParser;
+import com.tickettranslate.core.TranslatorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +29,13 @@ public class TranslateRequestService {
     @Value("${Translation.Source.Credentials}")
     private String translationSourceCredentials;
 
+    private TranslatorService translatorService;
+
+    @Autowired
+    public TranslateRequestService(TranslatorService translatorService)
+    {
+        this.translatorService = translatorService;
+    }
     public boolean translate(String sourceID, String ticketID)
     {
         String json = "empty";
@@ -60,6 +69,8 @@ public class TranslateRequestService {
             String self = o.get("self").getAsString();
             JsonObject fields = o.get("fields").getAsJsonObject();
             String description = fields.get("description").getAsString();
+
+            String translation = translatorService.translate(description, "en", "de");
             String dummy = json;
 
 
@@ -82,3 +93,6 @@ public class TranslateRequestService {
         return json==null?false:true;
     }
 }
+
+
+
