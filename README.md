@@ -27,12 +27,15 @@ The translation process to perforemed in the following steps.
 * Translation: Azure Translate
 * Database: MongoDB
 
-## Configure Jira
-You have to configure Jira to trigget Web Hook Calls after creation of new tickets and after changes to existing tickets. Log in as Admministrator, go to System Administration.
+
+
+## Configuration
+### Configure Jira
+You have to configure Jira to trigger *WebHook* Calls after a new ticket is created and after changes to an existing ticket are made. Log into *Jira* as Administrator, go to System Administration (see screen shot).
 
 ![Jira Admin](/Documentation/Images/JiraAdmin.png)
 
-Select WebHooks in the menu on the left side (not shown in screen shot).
+Select *WebHooks* in the menu on the left side (not shown in screen shot).
 
 Configure WebHook as shown on screen shot below.
 * Name: Any name which describes the purpose of the WebHook.
