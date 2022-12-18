@@ -18,7 +18,7 @@ public class RequestBody {
 
     @Override
     public String toString() {
-        //return "[{\"Text\": \"I would really like to drive your car around the block a few times!\"}]"
+
         return "[{" +
                 "\"Text\": \"" + Text + '\"' +
                 "}]";

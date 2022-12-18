@@ -3,7 +3,10 @@ package com.tickettranslate.translaterequest;
 
 // import org.bson.json.JsonObject;
 //import org.springframework.boot.json.JsonParser;
+import com.google.gson.*;
+import com.tickettranslate.core.Translatable;
 import com.tickettranslate.core.TranslatorService;
+import com.tickettranslate.jira.JiraUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -14,11 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 //import com.atlassian.jira.rest.client;
 import java.util.Base64;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 
 @Service
 public class TranslateRequestService {
@@ -40,8 +38,18 @@ public class TranslateRequestService {
     {
         String json = getTicket(sourceID, ticketID);
         String description = paresTicketDescription(json);
-        String translation = translatorService.translate(description, "en", "de");
-        updateTicketDescription(sourceID, ticketID, translation);
+
+        Translatable t = new Translatable(description);
+        for(int i=0; i< t.getCount(); ++i)
+        {
+            if(t.getTranslation(i)==null)
+            {
+                String translation = translatorService.translate(t.getText(i), "en", "de");
+                t.setTranslation(i, translation);
+            }
+        }
+        String updatedDescription = t.toString();
+        updateTicketDescription(sourceID, ticketID, updatedDescription);
 
         return true;
     }
@@ -80,7 +88,10 @@ public class TranslateRequestService {
 
             // create body
             //String body = "{ \"update\" : { \"components\" : [{ \"set\" : [{ \"description\" : \"" + description + "\" }]}]}}";
-            String body = "{ \"fields\" : { \"description\" : \"" + description + "\" }}";
+            JiraUpdateRequest upReq = new JiraUpdateRequest(description);
+            Gson gson = new Gson();
+            String s = gson.toJson(upReq);
+            String body = "{ \"fields\" : " + s + "}";
 
             // create request
             HttpEntity request = new HttpEntity(body, headers);
