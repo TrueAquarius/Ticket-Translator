@@ -1,4 +1,6 @@
 ﻿# Ticket-Translator
+(Maturity Level: Proof Of Concept)
+
 This application performs **language translations** of tickets of a **Ticket System** such as *Jira* or *Service Now*.
 
 (Currently, only *Jira* is supported; however the application can easily be extended to support other ticket systems.)
@@ -18,7 +20,11 @@ The translation process to perforemed in the following steps.
 ![System Landscape Overview](/Documentation/Images/SequenceDiagram.png)
 
 ## Technology Stack
-* Java
+* Java (Version 17)
 * Java Spring Boot
 * Gson (Google Json)
+* Ticket System: Jira
+* Translation: Azure Translate
+* Database: MongoDB
+
 
