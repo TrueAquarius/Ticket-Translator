@@ -5,7 +5,7 @@ This application performs **language translations** of tickets of a **Ticket Sys
 
 (Currently, only *Jira* is supported; however the application can easily be extended to support other ticket systems.)
 
-The acutlal translation is performed usig a Translation Service (such as Azure Translate).
+The acutlal translation is performed using a Translation Service (such as Azure Translate).
 
 ![System Landscape Overview](/Documentation/Images/Landscape.png)
 
