@@ -1,9 +1,11 @@
 ﻿# Ticket-Translator
-This application performs **language translations** of tickets within a **Ticket System** such as *Jira* or *Service Now*.
+This application performs **language translations** of tickets of a **Ticket System** such as *Jira* or *Service Now*.
 
 (Currently, only *Jira* is supported; however the application can easily be extended to support other ticket systems.)
 
 The acutlal translation is performed usig a Translation Service (such as Azure Translate).
+
+![System Landscape Overview](/Documentation/Images/Landscape.png)
 
 ## How it works
 The translation process to perforemed in the following steps.
@@ -12,3 +14,11 @@ The translation process to perforemed in the following steps.
 3. The **Ticket-Translatior** fetches the ticket details from the **Ticket System** (API Call call to Ticket System).
 4. The **Ticket-Translator** translates the ticket using a **Translation Service** (API call to Traslation Service).
 5. The **Ticket-Translator** updates the ticket in the **Ticket System** (API call to Ticket System).
+
+![System Landscape Overview](/Documentation/Images/SequenceDiagram.png)
+
+## Technology Stack
+* Java
+* Java Spring Boot
+* Gson (Google Json)
+
