@@ -40,16 +40,22 @@ public class TranslateRequestService {
         String description = paresTicketDescription(json);
 
         Translatable t = new Translatable(description);
+        boolean changeFlag = false;
         for(int i=0; i< t.getCount(); ++i)
         {
-            if(t.getTranslation(i)==null)
-            {
                 String translation = translatorService.translate(t.getText(i), "en", "de");
-                t.setTranslation(i, translation);
-            }
+                String tt = t.getTranslation(i);
+                if(tt==null || tt.compareTo(translation)!=0)
+                {
+                    t.setTranslation(i, translation);
+                    changeFlag = true;
+                }
         }
         String updatedDescription = t.toString();
-        updateTicketDescription(sourceID, ticketID, updatedDescription);
+        if (changeFlag)
+        {
+            updateTicketDescription(sourceID, ticketID, updatedDescription);
+        }
 
         return true;
     }

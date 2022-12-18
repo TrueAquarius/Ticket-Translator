@@ -3,6 +3,7 @@ package com.tickettranslate.core;
 public class Translatable {
     private static String TRANSLATION_START = "=== START TRANSLATION =====================";
     private static String TRANSLATION_END = "=== END TRANSLATION =====================";
+    private static String NEWLINE = "\r\n";
 
     private String text = null;
     private String translation = null;
@@ -24,18 +25,18 @@ public class Translatable {
             return;
         }
 
-        this.text = text.substring(0, start-1);
+        this.text = text.substring(0, start-1).trim();
         int end = text.indexOf(TRANSLATION_END);
 
         if(end<0)
         {
-            this.translation = text.substring(start + TRANSLATION_START.length());
+            this.translation = text.substring(start + TRANSLATION_START.length()).trim();
             return;
         }
 
-        this.translation = text.substring(start + TRANSLATION_START.length(), end-1);
+        this.translation = text.substring(start + TRANSLATION_START.length(), end-1).trim();
 
-        String rest = text.substring(end + TRANSLATION_END.length());
+        String rest = text.substring(end + TRANSLATION_END.length()).trim();
 
         if(rest.length() >0)
         {
@@ -45,7 +46,7 @@ public class Translatable {
 
     public String toString()
     {
-        String s = text + ((translation!=null) ? TRANSLATION_START + translation + TRANSLATION_END : "");
+        String s = text + ((translation!=null) ? NEWLINE + NEWLINE + TRANSLATION_START + NEWLINE + translation + NEWLINE + TRANSLATION_END + NEWLINE : "");
         return s + (next==null? "" : next.toString());
     }
 
